@@ -1,0 +1,16 @@
+{
+  "name": "nova-music-backend",
+  "version": "1.0.0",
+  "description": "Cloudflare Workers backend for NOVA MUSIC",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "build": "echo 'Build complete'",
+    "lint": "echo 'Linting...'"
+  },
+  "dependencies": {
+    "wrangler": "^3.0.0"
+  }
+}
