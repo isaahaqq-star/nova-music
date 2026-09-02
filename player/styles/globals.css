@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+  color: #fff;
+  font-family: system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+main {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.player-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px;
+  gap: 1rem;
+}
+
+.track-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-center;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.player-controls {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1.5rem 0;
+}
+
+.btn-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #ff006e;
+  border-radius: 50%;
+  background: transparent;
+  color: #ff006e;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.btn-control:hover:not(:disabled) {
+  background: #ff006e;
+  color: #0a0a0a;
+  transform: scale(1.1);
+}
+
+.btn-control:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(90deg, #ff006e 0%, #ff006e var(--value), #333 var(--value), #333 100%);
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+}
+
+.progress-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ff006e;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 0, 110, 0.5);
+}
+
+.progress-bar::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ff006e;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 10px rgba(255, 0, 110, 0.5);
+}
+
+.time-display {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 0.875rem;
+  color: #999;
+  margin-top: 0.5rem;
+  padding: 0 0.5rem;
+}
+
+@media (max-width: 640px) {
+  main {
+    padding: 1rem;
+  }
+
+  .track-title {
+    font-size: 1.5rem;
+  }
+
+  .player-controls {
+    gap: 1.5rem;
+  }
+
+  .btn-control {
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
+  }
+}
