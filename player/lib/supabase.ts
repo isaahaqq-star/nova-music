@@ -1,26 +1,34 @@
+'use client'
+
 import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+const r2Url = process.env.NEXT_PUBLIC_R2_URL || 'https://audio.nova-music.dev'
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+const supabase = createClient(supabaseUrl, supabaseKey)
 
-export const fetchTrackUrl = async (trackId: number): Promise<string> => {
-  const r2BaseUrl = process.env.NEXT_PUBLIC_R2_URL || 'https://audio.nova-music.dev'
-  const trackPath = `401k/${String(trackId).padStart(2, '0')}.mp3`
-  return `${r2BaseUrl}/${trackPath}`
+export async function fetchTrackUrl(trackNumber: number): Promise<string> {
+  try {
+    const url = `${r2Url}/audio/401k/${String(trackNumber).padStart(2, '0')}.mp3`
+    return url
+  } catch (error) {
+    console.error('Error fetching track URL:', error)
+    throw error
+  }
 }
 
-export const logPlaybackEvent = async (trackId: number, event: string) => {
+export async function logPlaybackEvent(
+  trackNumber: number,
+  eventType: 'playing' | 'paused' | 'seeked' | 'track_loaded' | 'track_completed' | 'next_clicked' | 'previous_clicked'
+): Promise<void> {
   try {
-    const { error } = await supabase.from('playback_events').insert({
-      track_id: trackId,
-      event_type: event,
-      timestamp: new Date().toISOString(),
+    await supabase.from('playback_events').insert({
+      track_id: trackNumber,
+      event_type: eventType,
+      user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : 'unknown',
     })
-
-    if (error) console.error('Error logging playback:', error)
-  } catch (err) {
-    console.error('Playback logging failed:', err)
+  } catch (error) {
+    console.warn('Failed to log playback event:', error)
   }
 }
