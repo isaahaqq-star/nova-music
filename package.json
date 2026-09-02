@@ -1,0 +1,38 @@
+{
+  "name": "nova-music",
+  "version": "1.0.0",
+  "description": "NOVA MUSIC — ISA OS Music Infrastructure & 401K Player",
+  "private": true,
+  "workspaces": [
+    "player",
+    "backend"
+  ],
+  "scripts": {
+    "install:all": "npm install && npm -w player install && npm -w backend install",
+    "build": "npm -w player run build && npm -w backend run build",
+    "dev": "npm -w player run dev",
+    "deploy": "npm run build && npm -w player run deploy && npm -w backend run deploy",
+    "deploy:player": "npm -w player run deploy",
+    "deploy:wrangler": "npm -w backend run deploy",
+    "test": "npm -w player run test",
+    "lint": "npm -w player run lint && npm -w backend run lint"
+  },
+  "keywords": [
+    "music",
+    "streaming",
+    "cloudflare",
+    "vercel",
+    "supabase",
+    "401k",
+    "yolajo"
+  ],
+  "author": "isaahaqq-star",
+  "license": "PROPRIETARY",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}
