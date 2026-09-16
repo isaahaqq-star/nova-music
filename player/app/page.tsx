@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Player from '@/components/Player'
-import '@/styles/globals.css'
 
 export const metadata: Metadata = {
   title: '401K • NOVA MUSIC',
