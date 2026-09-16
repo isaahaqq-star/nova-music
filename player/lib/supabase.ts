@@ -1,34 +1,45 @@
-'use client'
-
-import { createClient } from '@supabase/supabase-js'
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
-const r2Url = process.env.NEXT_PUBLIC_R2_URL || 'https://audio.nova-music.dev'
-
-const supabase = createClient(supabaseUrl, supabaseKey)
-
-export async function fetchTrackUrl(trackNumber: number): Promise<string> {
-  try {
-    const url = `${r2Url}/audio/401k/${String(trackNumber).padStart(2, '0')}.mp3`
-    return url
-  } catch (error) {
-    console.error('Error fetching track URL:', error)
-    throw error
-  }
+export interface Track {
+  track_number: number
+  title: string
 }
 
-export async function logPlaybackEvent(
-  trackNumber: number,
-  eventType: 'playing' | 'paused' | 'seeked' | 'track_loaded' | 'track_completed' | 'next_clicked' | 'previous_clicked'
-): Promise<void> {
-  try {
-    await supabase.from('playback_events').insert({
-      track_id: trackNumber,
-      event_type: eventType,
-      user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : 'unknown',
-    })
-  } catch (error) {
-    console.warn('Failed to log playback event:', error)
-  }
+export interface AlbumInfo {
+  title: string
+  artist: string
+  artworkUrl: string
+}
+
+export const ALBUM_INFO: AlbumInfo = {
+  title: '401K',
+  artist: 'YolaJo',
+  artworkUrl: '/401k-cover.jpg',
+}
+
+export const TRACKS_401K: Track[] = [
+  { track_number: 1, title: 'STOP PLAYING WITH ME' },
+  { track_number: 2, title: 'BANKROLLS & POLES' },
+  { track_number: 3, title: 'TRAP JUMPIN' },
+  { track_number: 4, title: 'FULL EFFECT' },
+  { track_number: 5, title: "INTL' PLAYA" },
+  { track_number: 6, title: 'ROADRUNNER' },
+  { track_number: 7, title: 'R.B.I.T.K' },
+  { track_number: 8, title: 'GOT IT BACK' },
+  { track_number: 9, title: 'WHY LIE' },
+  { track_number: 10, title: 'WHY THEY MAD' },
+  { track_number: 11, title: 'CRAZY WORLD' },
+  { track_number: 12, title: 'HOW I FEEL' },
+]
+
+export const TRACKS = TRACKS_401K
+
+export function getTrackTitle(trackNumber: number): string {
+  const track = TRACKS_401K.find(
+    (track) => track.track_number === trackNumber
+  )
+
+  return track?.title || `Track ${trackNumber}`
+}
+
+export function getTotalTracks(): number {
+  return TRACKS_401K.length
 }
