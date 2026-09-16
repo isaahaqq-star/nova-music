@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://nova-music-401k.vercel.app'),
   title: {
     template: '%s • NOVA MUSIC',
     default: '401K • NOVA MUSIC',
@@ -27,7 +26,10 @@ export default function RootLayout({
       <head>
         <meta name="theme-color" content="#0a0a0a" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
       </head>
       <body>{children}</body>
     </html>
